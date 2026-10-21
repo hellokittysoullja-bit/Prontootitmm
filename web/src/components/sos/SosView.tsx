@@ -111,8 +111,10 @@ function Breathing({
         <div className="relative flex size-64 items-center justify-center sm:size-72" aria-hidden="true">
           {!reduced && (
             <div
-              className="absolute inset-0 rounded-full bg-dawn/15 ring-1 ring-dawn/40"
+              className="absolute inset-0 rounded-full ring-1 ring-dawn/30"
               style={{
+                background:
+                  "radial-gradient(circle, rgba(241,199,163,0.30) 0%, rgba(227,162,90,0.12) 55%, rgba(227,162,90,0) 72%)",
                 transform: `scale(${ready ? current.scale : 0.56})`,
                 transitionProperty: "transform",
                 transitionDuration: `${current.seconds}s`,
@@ -120,7 +122,7 @@ function Breathing({
               }}
             />
           )}
-          <div className="relative size-24 rounded-full bg-dawn/25" />
+          <div className="relative size-16 rounded-full bg-dawn shadow-[0_0_48px_rgba(241,199,163,0.45)]" />
         </div>
         <p className="mt-8 font-serif text-4xl text-paper" aria-live="polite">
           {current.name}
