@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/*
+  Палитра «ночной город → рассвет» (docs/BRIEF.md §8).
+  Контраст на --night: paper 14.1:1, fog 6:1, lamp 8:1, dawn 11.2:1.
+*/
+:root {
+  --night: #121a21;
+  --dusk: #1f2b33;
+  --dusk-raised: #273540;
+  --line: #34444f;
+  --lamp: #e3a25a;
+  --lamp-strong: #eeb370;
+  --dawn: #f1c7a3;
+  --paper: #ece6dc;
+  --fog: #8e989d;
+  --danger: #ee8a7a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-night: var(--night);
+  --color-dusk: var(--dusk);
+  --color-dusk-raised: var(--dusk-raised);
+  --color-line: var(--line);
+  --color-lamp: var(--lamp);
+  --color-lamp-strong: var(--lamp-strong);
+  --color-dawn: var(--dawn);
+  --color-paper: var(--paper);
+  --color-fog: var(--fog);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-onest), system-ui, sans-serif;
+  --font-serif: var(--font-literata), Georgia, serif;
+}
+
+html {
+  background: var(--night);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--night);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  font-feature-settings: "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--dawn);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--lamp);
+  color: var(--night);
+}
+
+.wave-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: wave-draw 2.4s cubic-bezier(0.45, 0, 0.25, 1) 0.2s forwards;
+}
+
+@keyframes wave-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
