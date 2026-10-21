@@ -2,7 +2,7 @@ import { Button, Title } from "@/components/ui";
 import type { ReflectionContent } from "@/lib/quiz/types";
 import { ActionBar } from "./QuestionView";
 
-function NightVisual() {
+export function NightVisual() {
   // Окна ночного дома: светится одно — то, где сейчас не спят.
   const windows = Array.from({ length: 18 }, (_, i) => i);
   return (
@@ -33,7 +33,7 @@ function NightVisual() {
   );
 }
 
-function WaveVisual() {
+export function WaveVisual() {
   return (
     <svg viewBox="0 0 320 140" className="h-auto w-full" role="img" aria-label="График: тяга нарастает, достигает пика и спадает за 15–30 минут">
       <line x1="16" y1="112" x2="304" y2="112" stroke="var(--line)" />
@@ -90,7 +90,7 @@ export function ReflectionView({
       </div>
       {content.source && <p className="mt-6 text-sm text-fog">Источники: {content.source}</p>}
       <ActionBar>
-        <Button type="button" onClick={onNext} autoFocus>
+        <Button type="button" onClick={onNext}>
           Понятно, дальше
         </Button>
       </ActionBar>

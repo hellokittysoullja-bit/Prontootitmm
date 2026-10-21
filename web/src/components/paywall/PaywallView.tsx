@@ -160,7 +160,7 @@ export function PaywallView() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-[34rem] px-5 pb-12">
+    <main id="main" className="mx-auto w-full max-w-[34rem] px-5 pb-12">
       <div className="flex h-14 items-center justify-end">
         <Link
           href="/sos"

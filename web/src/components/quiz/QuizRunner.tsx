@@ -32,7 +32,7 @@ export function QuizRunner() {
   const fresh = state.history.length === 1 && Object.keys(state.answers).length === 0;
   if (fresh && !started) {
     return (
-      <main className="mx-auto min-h-dvh w-full max-w-[34rem] px-5 pb-6 pt-10 sm:pt-16">
+      <main id="main" className="mx-auto min-h-dvh w-full max-w-[34rem] px-5 pb-6 pt-10 sm:pt-16">
         <IntroView onStart={() => setStarted(true)} />
       </main>
     );
@@ -50,7 +50,7 @@ export function QuizRunner() {
           onBack={canGoBack ? back : undefined}
         />
       )}
-      <main className="mx-auto w-full max-w-[34rem] px-5 pb-6 pt-6">
+      <main id="main" className="mx-auto w-full max-w-[34rem] px-5 pb-6 pt-6">
         {screen.kind === "question" && (
           <QuestionView
             key={screen.id}

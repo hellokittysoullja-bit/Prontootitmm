@@ -215,7 +215,7 @@ export function SosView() {
         </Link>
       </header>
 
-      <main className="mx-auto w-full max-w-[34rem]">
+      <main id="main" className="mx-auto w-full max-w-[34rem]">
         {stage === "breathing" && (
           <Breathing key={round} answers={answers} onFinish={finishRound} onRelief={relief} />
         )}

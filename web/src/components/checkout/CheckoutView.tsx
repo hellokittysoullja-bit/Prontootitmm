@@ -70,7 +70,7 @@ export function CheckoutView() {
 
   if (submitted) {
     return (
-      <main className="mx-auto flex min-h-dvh w-full max-w-[34rem] flex-col justify-center px-5 py-10">
+      <main id="main" className="mx-auto flex min-h-dvh w-full max-w-[34rem] flex-col justify-center px-5 py-10">
         <Title>Оплата пока не подключена</Title>
         <p className="mt-4 text-paper/90">
           Это тестовая версия: платёж через ЮKassa появится перед запуском. Деньги не списаны, данные
@@ -90,7 +90,7 @@ export function CheckoutView() {
   const action = methods.find((m) => m.id === method)!.action;
 
   return (
-    <main className="mx-auto w-full max-w-[34rem] px-5 pb-12 pt-4">
+    <main id="main" className="mx-auto w-full max-w-[34rem] px-5 pb-12 pt-4">
       <Link href="/paywall" className="inline-flex min-h-11 items-center text-fog hover:text-paper">
         ← Тарифы
       </Link>

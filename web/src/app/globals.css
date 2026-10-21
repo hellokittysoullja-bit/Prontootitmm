@@ -15,6 +15,11 @@
   --paper: #ece6dc;
   --fog: #8e989d;
   --danger: #ee8a7a;
+  /* «Утро» — светлая часть лендинга после рассвета. ink 14.2:1, ink-soft 7:1, ember 5.5:1. */
+  --morning: #f3e5d5;
+  --ink: #121a21;
+  --ink-soft: #4f4a47;
+  --ember: #8a4b1f;
   color-scheme: dark;
 }
 
@@ -29,6 +34,10 @@
   --color-paper: var(--paper);
   --color-fog: var(--fog);
   --color-danger: var(--danger);
+  --color-morning: var(--morning);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ember: var(--ember);
   --font-sans: var(--font-onest), system-ui, sans-serif;
   --font-serif: var(--font-literata), Georgia, serif;
 }
@@ -36,6 +45,18 @@
 html {
   background: var(--night);
   -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 body {
@@ -72,6 +93,150 @@ body {
 @keyframes wave-draw {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+/*
+  Небо лендинга: единственный оркестрованный моушн страницы (docs/BRIEF.md §8).
+  По мере прокрутки ночь светлеет к рассвету. Без поддержки scroll-driven animations
+  или при reduced motion небо просто остаётся ночным.
+*/
+@property --sky-top {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0e151b;
+}
+
+@property --sky-bottom {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #121a21;
+}
+
+@property --sky-glow {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 55% at 50% 112%, color-mix(in srgb, var(--lamp) var(--sky-glow), transparent) 0%, transparent 70%),
+    linear-gradient(var(--sky-top), var(--sky-bottom));
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sky {
+      animation: sky-phase linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0% 72%;
+    }
+  }
+}
+
+@keyframes sky-phase {
+  0% {
+    --sky-top: #0e151b;
+    --sky-bottom: #121a21;
+    --sky-glow: 0%;
+  }
+  55% {
+    --sky-top: #111a22;
+    --sky-bottom: #1b2530;
+    --sky-glow: 10%;
+  }
+  100% {
+    --sky-top: #1b2430;
+    --sky-bottom: #33292a;
+    --sky-glow: 38%;
+  }
+}
+
+/* Дыхательный шар в hero: 4 с вдох, 2 с пауза, 6 с выдох. */
+.orb {
+  animation: orb-breath 12s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+@keyframes orb-breath {
+  0% {
+    transform: scale(0.56);
+  }
+  33.33%,
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.56);
+  }
+}
+
+.orb-label {
+  opacity: 0;
+}
+
+.orb-label[data-phase="in"] {
+  animation: orb-in 12s linear infinite;
+}
+.orb-label[data-phase="hold"] {
+  animation: orb-hold 12s linear infinite;
+}
+.orb-label[data-phase="out"] {
+  animation: orb-out 12s linear infinite;
+}
+
+@keyframes orb-in {
+  0%,
+  31% {
+    opacity: 1;
+  }
+  33.33%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes orb-hold {
+  0%,
+  33.32% {
+    opacity: 0;
+  }
+  33.33%,
+  48% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes orb-out {
+  0%,
+  49.99% {
+    opacity: 0;
+  }
+  50%,
+  98% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .orb-label {
+    animation: none !important;
+  }
+  .orb {
+    transform: scale(0.8);
+  }
+  .orb-label[data-phase="in"] {
+    opacity: 1;
   }
 }
 

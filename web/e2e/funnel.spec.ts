@@ -180,3 +180,14 @@ test("paywall close leads to free SOS", async ({ page }) => {
   await page.getByRole("link", { name: /Закрыть/ }).click();
   await expect(page).toHaveURL(/\/sos$/);
 });
+
+test("landing: hero CTAs, SOS one tap away, no horizontal scroll", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Тяга проходит/);
+  await expect(page.getByText(/166 ₽ в месяц при оплате за год/)).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  await expect(page.getByRole("link", { name: "Тянет прямо сейчас" })).toHaveAttribute("href", "/sos");
+  await page.getByRole("link", { name: "Да, пройти тест" }).click();
+  await expect(page).toHaveURL(/\/quiz$/);
+});

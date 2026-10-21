@@ -30,7 +30,7 @@ export function ButtonLink({
 
 export function Page({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <main className={`mx-auto w-full max-w-[34rem] px-5 pb-10 pt-6 sm:pt-10 ${className}`}>
+    <main id="main" className={`mx-auto w-full max-w-[34rem] px-5 pb-10 pt-6 sm:pt-10 ${className}`}>
       {children}
     </main>
   );
